@@ -3,27 +3,31 @@ import { useForm } from 'react-hook-form'
 import { AuthContext } from '../../../contexts/AuthProvider';
 import {  useQuery } from '@tanstack/react-query'
 import Loading from '../../../Shared/Loading/Loading';
+import toast from 'react-hot-toast';
 
 const AddProduct = () => {
     const conditions = [
         {
             conditionType: 'Excellect',
-            id:'1'
+            id: '1'
         },
         {
             conditionType: 'Good',
-            id:'2'
+            id: '2'
         },
         {
             conditionType: 'Fair',
-            id:'3'
+            id: '3'
         }
     ]
     const { register, handleSubmit, formState: { errors } } = useForm()
 
     const { user } = useContext(AuthContext)
+    const imageHostKey = process.env.REACT_APP_image_key;
+   
+    
 
-    const { data: categories = [] ,isLoading} = useQuery({
+    const { data: categories = [], isLoading } = useQuery({
         queryKey: ['categoriestype'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/categoriestype');
@@ -33,12 +37,60 @@ const AddProduct = () => {
     })
 
     const handleAddProduct = (data) => {
+        const productPhoto = data.productPhoto[0];
+       console.log(data)
+        const formData = new FormData();
+        formData.append('image', productPhoto)
         
+        const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`
+        fetch(url, {
+            method: 'POST',
+            body:formData
+        })
+            .then(res => res.json())
+            .then(imgdata => {
+                if (imgdata.success) {
+                    console.log(imgdata.data.url)
+                    const product = {
+                        
+                        sellerName: user?.displayName,
+                        email: user?.email,
+                        sellerPhoneNumber: data.phone,
+                        location: data.Location,
+                        category: data.categories,
+                        condition: data.condition,
+                        description: data.description,
+                        originalPrice: data.originalPrice,
+                        parchaseYear: data.parchaseYear,
+                        productName: data.productName,
+                        productPhoto: imgdata.data.url,
+                        resalePrice: data.resalePrice,
+                        yearOfUse:data.yearOfUse
+                    } 
+                 //save product info to the database
+                    fetch('http://localhost:5000/products', {
+                        method: 'POST',
+                        headers: {
+                            'content-type' : 'application/json'
+                        },
+                        body:JSON.stringify(product)
+                    })  
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data)
+                            toast.success(`${data.productName} is added successfully`);
+                 })   
+             }
+        })
+         
     }
-
+    
     if (isLoading) {
         return <Loading></Loading>
     }
+    
+
+
     return (
         <div>
             <h2 className='text-4xl'>Add Product</h2>
@@ -46,9 +98,9 @@ const AddProduct = () => {
                 <div className='grid grid-cols-2'>
                 <div className="form-control w-full max-w-xs">
                     <label className="label"> <span className="label-text">Seller Name</span></label>
-                    <input  defaultValue={user?.displayName} type="text" {...register("sellerName", {
-                        required: "Seller Name is Required"
-                    })} className="input input-bordered w-full max-w-xs" />
+                        {user?.displayName && <input defaultValue={user?.displayName} type="text" {...register("sellerName", {
+                            required: "Seller Name is Required"
+                        })} className="input input-bordered w-full max-w-xs" />}
                     {errors.sellerName && <p className='text-red-500'>{errors.sellerName.message}</p>}
                 </div>
                 
