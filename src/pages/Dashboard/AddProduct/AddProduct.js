@@ -20,7 +20,7 @@ const AddProduct = () => {
             id: '3'
         }
     ]
-    const { register, handleSubmit, formState: { errors } } = useForm()
+    const { register, handleSubmit, formState: { errors },reset } = useForm()
 
     const { user } = useContext(AuthContext)
     const imageHostKey = process.env.REACT_APP_image_key;
@@ -37,8 +37,9 @@ const AddProduct = () => {
     })
 
     const handleAddProduct = (data) => {
+        const time = new Date().toLocaleString();
         const productPhoto = data.productPhoto[0];
-       console.log(data)
+      
         const formData = new FormData();
         formData.append('image', productPhoto)
         
@@ -65,7 +66,8 @@ const AddProduct = () => {
                         productName: data.productName,
                         productPhoto: imgdata.data.url,
                         resalePrice: data.resalePrice,
-                        yearOfUse:data.yearOfUse
+                        yearOfUse: data.yearOfUse,
+                        postTime:time
                     } 
                  //save product info to the database
                     fetch('http://localhost:5000/products', {
@@ -76,9 +78,12 @@ const AddProduct = () => {
                         body:JSON.stringify(product)
                     })  
                         .then(res => res.json())
-                        .then(data => {
-                            console.log(data)
-                            toast.success(`${data.productName} is added successfully`);
+                        .then(result => {
+                            if (result.acknowledged) {
+                                
+                               toast.success(`${data.productName} is added successfully`);
+                                reset()
+                            }
                  })   
              }
         })
@@ -178,7 +183,8 @@ const AddProduct = () => {
 
                  <div className="form-control w-full max-w-xs">
                     <label className="label"> <span className="label-text">Condition</span></label>
-                    <select {...register('condition',{required: true})} className='select input-bordered w-full max-w-xs'>
+                        <select {...register('condition', { required: true })} className='select input-bordered w-full max-w-xs'>
+                        <option disabled selected>Select Your product Condition</option>
                         {
                             conditions.map(condition => <option
                                 key={condition.id}
@@ -190,13 +196,14 @@ const AddProduct = () => {
 
                  <div className="form-control w-full max-w-xs">
                     <label className="label"> <span className="label-text">Choose Your Categories</span></label>
-                    <select {...register('categories',{required: true})} className='select input-bordered w-full max-w-xs'>
+                        <select {...register('categories', { required: true })} className='select input-bordered w-full max-w-xs'>
+                         <option disabled selected>Select Your category</option>
                         {
                             categories.map(categorie => <option
                                 key={categorie._id}
                                 value={categorie?.name}
                             >{categorie?.name}</option>)
-                      }
+                        }
                     </select>
                 </div>
                  </div>
