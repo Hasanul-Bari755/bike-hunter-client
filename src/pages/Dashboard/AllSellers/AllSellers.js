@@ -5,9 +5,11 @@ const AllSellers = () => {
   const usertype = "seller";
 
   const { data: sellers = [] } = useQuery({
-    queryKey: ["buyer", usertype],
+    queryKey: ["seller", usertype],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/buyer?buyer=${usertype}`);
+      const res = await fetch(
+        `http://localhost:5000/seller?seller=${usertype}`
+      );
       const data = res.json();
       return data;
     },

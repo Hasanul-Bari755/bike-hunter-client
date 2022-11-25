@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import swal from "sweetalert";
 
 const AllBuyers = () => {
   const usertype = "buyer";
 
-  const { data: buyers = [] } = useQuery({
+  const { data: buyers = [], refetch } = useQuery({
     queryKey: ["buyer", usertype],
     queryFn: async () => {
       const res = await fetch(`http://localhost:5000/buyer?buyer=${usertype}`);
@@ -12,6 +13,32 @@ const AllBuyers = () => {
       return data;
     },
   });
+
+  const handleDelete = (id) => {
+    console.log(id);
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        fetch(`http://localhost:5000/buyer/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            refetch();
+            swal("Poof! Your imaginary file has been deleted!", {
+              icon: "success",
+            });
+          });
+      } else {
+        swal("Your imaginary file is safe!");
+      }
+    });
+  };
 
   return (
     <div>
@@ -28,12 +55,17 @@ const AllBuyers = () => {
           </thead>
           <tbody>
             {buyers.map((buyer, i) => (
-              <tr>
+              <tr key={buyer._id}>
                 <th>{i + 1}</th>
                 <td>{buyer.name}</td>
                 <td>{buyer.email}</td>
                 <td>
-                  <button className="btn btn-sm bg-yellow-600">Delete</button>
+                  <button
+                    onClick={() => handleDelete(buyer._id)}
+                    className="btn btn-sm bg-yellow-600"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
