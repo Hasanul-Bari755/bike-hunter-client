@@ -63,7 +63,7 @@ const AllSellers = () => {
                 <td>
                   <button
                     onClick={() => handleDelete(seller._id)}
-                    className="btn btn-sm bg-yellow-600"
+                    className="btn btn-sm bg-red-500"
                   >
                     Delete{" "}
                   </button>

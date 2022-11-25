@@ -10,13 +10,14 @@ import IndivisualCtagory from "../pages/Home/Categories/IndivisualCtagory";
 import Home from "../pages/Home/Home/Home";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
+import Errorpage from "../Shared/Errorpage/Errorpage";
 import PrivateRoutes from "./PrivateRoutes";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
-
+    errorElement: <Errorpage></Errorpage>,
     children: [
       {
         path: "/",
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <DashboardLayout></DashboardLayout>,
+    errorElement: <Errorpage></Errorpage>,
     children: [
       {
         path: "/dashboard",

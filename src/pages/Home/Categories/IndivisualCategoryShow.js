@@ -20,7 +20,7 @@ const IndivisualCategoryShow = ({ product }) => {
   return (
     <div className="card card-compact w-full bg-base-100 shadow-xl">
       <figure>
-        <img src={productPhoto} alt="Shoes" />
+        <img className="h-72" src={productPhoto} alt="Shoes" />
       </figure>
       <div className="card-body">
         <h2 className="card-title">{productName}</h2>
