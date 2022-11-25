@@ -30,8 +30,8 @@ const router = createBrowserRouter([
             },
             {
                 path: '/category/:name',
-                element: <PrivateRoutes><IndivisualCtagory></IndivisualCtagory></PrivateRoutes>,
-                loader: async ({ params }) => fetch(`http://localhost:5000/products/${params?.name}`)
+                loader: async ({ params }) => fetch(`http://localhost:5000/products/${params?.name}`),
+                element: <PrivateRoutes><IndivisualCtagory></IndivisualCtagory></PrivateRoutes>
             }
         ]
     },

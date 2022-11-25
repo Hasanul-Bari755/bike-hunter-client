@@ -1,9 +1,9 @@
 import React from 'react';
 
-const IndivisualCategoryShow = ({ product,setTitle }) => {
+const IndivisualCategoryShow = ({ product }) => {
     const {sellerName,sellerPhoneNumber,location,category,condition,description,originalPrice,postTime,yearOfUse,
         resalePrice, productPhoto, productName, parchaseYear } = product;
-    setTitle(category)
+    
    
     return (
         
