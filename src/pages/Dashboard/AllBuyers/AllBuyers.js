@@ -18,7 +18,7 @@ const AllBuyers = () => {
     console.log(id);
     swal({
       title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this imaginary file!",
+      text: "Once deleted, you will not be able to recover this imaginary buyer!",
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -30,19 +30,19 @@ const AllBuyers = () => {
           .then((res) => res.json())
           .then((data) => {
             refetch();
-            swal("Poof! Your imaginary file has been deleted!", {
+            swal("Poof! Your imaginary buyer has been deleted!", {
               icon: "success",
             });
           });
       } else {
-        swal("Your imaginary file is safe!");
+        swal("Your imaginary buyer is safe!");
       }
     });
   };
 
   return (
     <div>
-      <h2 className="text-4xl">All Buyers</h2>
+      <h2 className="text-4xl mb-6">All Buyers</h2>
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead>

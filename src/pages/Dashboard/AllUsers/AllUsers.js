@@ -36,7 +36,7 @@ const AllUsers = () => {
   };
   return (
     <div>
-      <h2 className="text-4xl mb-6">All Users{users.length}</h2>
+      <h2 className="text-4xl mb-6">All Users</h2>
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead>
