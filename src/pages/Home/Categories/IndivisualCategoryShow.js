@@ -1,4 +1,3 @@
-import React from "react";
 import BookingModal from "../../BookingModal.js/BookingModal";
 
 const IndivisualCategoryShow = ({ product }) => {
@@ -41,6 +40,7 @@ const IndivisualCategoryShow = ({ product }) => {
           </label>
         </div>
       </div>
+
       <BookingModal
         productName={productName}
         resalePrice={resalePrice}
