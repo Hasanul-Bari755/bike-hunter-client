@@ -316,7 +316,7 @@ const AddProduct = () => {
 
         <div className="text-center">
           <input
-            className="btn btn-accent w-2/4 mx-auto"
+            className="btn btn-accent bg-yellow-600 text-white w-2/4 mx-auto"
             value="Submit"
             type="submit"
           />

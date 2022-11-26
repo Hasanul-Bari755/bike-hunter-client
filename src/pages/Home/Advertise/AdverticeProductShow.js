@@ -5,7 +5,8 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 const AdverticeProductShow = ({ advertiseproduct }) => {
-  const { productName, resalePrice, postTime, productPhoto } = advertiseproduct;
+  const { productName, resalePrice, postTime, productPhoto, category } =
+    advertiseproduct;
   useEffect(() => {
     AOS.init({ duration: 2000 });
   }, []);
@@ -29,11 +30,12 @@ const AdverticeProductShow = ({ advertiseproduct }) => {
           <h3 className="text-xl font-semibold dark:text-emerald-400">
             {productName}
           </h3>
+          <h3 className="text-xl font-semibold dark:text-emerald-400">
+            Category: {category}
+          </h3>
 
-          <p className="leading-snug dark:text-gray-400">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat,
-            excepturi. Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            Repellat, excepturi.
+          <p className="leading-snug text-yellow-600 text-3xl">
+            Price: {resalePrice} BDT
           </p>
         </div>
       </div>

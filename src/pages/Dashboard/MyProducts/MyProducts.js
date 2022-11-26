@@ -3,6 +3,9 @@ import { AuthContext } from "../../../contexts/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../../Shared/Loading/Loading";
 import toast from "react-hot-toast";
+import swal from "sweetalert";
+import { FaTrashAlt } from "react-icons/fa";
+
 const MyProducts = () => {
   const { user } = useContext(AuthContext);
 
@@ -42,6 +45,32 @@ const MyProducts = () => {
       });
   };
 
+  const handleDelete = (id) => {
+    console.log(id);
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary product!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        fetch(`http://localhost:5000/myproduct/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            refetch();
+            swal("Poof! Your imaginary product has been deleted!", {
+              icon: "success",
+            });
+          });
+      } else {
+        swal("Your imaginary product is safe!");
+      }
+    });
+  };
+
   return (
     <div>
       <h2 className="text-4xl mb-6">My Products</h2>
@@ -73,7 +102,7 @@ const MyProducts = () => {
                   </div>
                 </td>
                 <td>{myproduct.productName}</td>
-                <td>{myproduct.resalePrice}</td>
+                <td>BDT: {myproduct.resalePrice}</td>
                 <td>{myproduct.status}</td>
 
                 <td>
@@ -87,7 +116,12 @@ const MyProducts = () => {
                   )}
                 </td>
                 <td>
-                  <button className="btn btn-sm bg-red-500">Delete</button>
+                  <button
+                    onClick={() => handleDelete(myproduct._id)}
+                    className="btn btn-sm bg-red-500 h-10"
+                  >
+                    <FaTrashAlt className="h-8"></FaTrashAlt>
+                  </button>
                 </td>
               </tr>
             ))}

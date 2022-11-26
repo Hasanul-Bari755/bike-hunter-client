@@ -53,7 +53,7 @@ const MyOrders = () => {
                       </div>
                     </td>
                     <td>{myorder.bookingProductName}</td>
-                    <td>{myorder.price}</td>
+                    <td>BDT: {myorder.price}</td>
                     <td>
                       <button className="btn btn-sm bg-yellow-600">Pay</button>
                     </td>

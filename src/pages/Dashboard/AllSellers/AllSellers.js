@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import swal from "sweetalert";
+import { FaTrashAlt } from "react-icons/fa";
 
 const AllSellers = () => {
   const usertype = "seller";
@@ -63,9 +64,9 @@ const AllSellers = () => {
                 <td>
                   <button
                     onClick={() => handleDelete(seller._id)}
-                    className="btn btn-sm bg-red-500"
+                    className="btn btn-sm bg-red-500 h-10"
                   >
-                    Delete{" "}
+                    <FaTrashAlt className="h-8"></FaTrashAlt>{" "}
                   </button>
                 </td>
               </tr>
