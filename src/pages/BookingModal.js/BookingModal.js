@@ -4,7 +4,9 @@ import { AuthContext } from "../../contexts/AuthProvider";
 
 const BookingModal = ({ product, setProduct }) => {
   const { user } = useContext(AuthContext);
-  const { productName, productPhoto, resalePrice } = product;
+  const { productName, productPhoto, resalePrice, _id } = product;
+  console.log(_id);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -32,9 +34,19 @@ const BookingModal = ({ product, setProduct }) => {
       .then((data) => {
         console.log(data);
         if (data.acknowledged) {
-          form.reset();
-          toast.success("Booking Confirmed");
-          setProduct(null);
+          fetch(`http://localhost:5000/productstatus/${_id}`, {
+            method: "PATCH",
+            headers: {
+              "content-type": "application/json",
+            },
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data);
+              form.reset();
+              toast.success("Booking Confirmed");
+              setProduct(null);
+            });
         }
       });
   };

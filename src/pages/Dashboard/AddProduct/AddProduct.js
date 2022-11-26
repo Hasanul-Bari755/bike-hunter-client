@@ -72,6 +72,7 @@ const AddProduct = () => {
             resalePrice: data.resalePrice,
             yearOfUse: data.yearOfUse,
             postTime: time,
+            status: "available",
           };
           //save product info to the database
           fetch("http://localhost:5000/products", {

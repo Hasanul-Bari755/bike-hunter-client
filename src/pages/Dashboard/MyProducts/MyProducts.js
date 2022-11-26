@@ -28,9 +28,10 @@ const MyProducts = () => {
           <thead>
             <tr>
               <th></th>
-              <th>Name</th>
+              <th>Image</th>
+              <th>Product Name</th>
               <th>Price</th>
-              <th>Picture</th>
+              <th>Status</th>
               <th>Advertise</th>
               <th>Action</th>
             </tr>
@@ -39,8 +40,6 @@ const MyProducts = () => {
             {myproducts.map((myproduct, i) => (
               <tr>
                 <th>{i + 1}</th>
-                <td>{myproduct.productName}</td>
-                <td>{myproduct.resalePrice}</td>
                 <td>
                   <div className="avatar">
                     <div className="w-20 rounded">
@@ -51,10 +50,16 @@ const MyProducts = () => {
                     </div>
                   </div>
                 </td>
+                <td>{myproduct.productName}</td>
+                <td>{myproduct.resalePrice}</td>
+                <td>{myproduct.status}</td>
+
                 <td>
-                  <button className="btn btn-sm bg-yellow-600">
-                    ADVERTISE
-                  </button>
+                  {myproduct.status === "available" && (
+                    <button className="btn btn-sm bg-yellow-600">
+                      ADVERTISE
+                    </button>
+                  )}
                 </td>
                 <td>
                   <button className="btn btn-sm bg-red-500">Delete</button>

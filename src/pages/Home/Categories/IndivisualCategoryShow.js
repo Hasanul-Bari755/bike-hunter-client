@@ -17,6 +17,8 @@ const IndivisualCategoryShow = ({ product, setProduct }) => {
     parchaseYear,
   } = product;
 
+  console.log(product._id);
+
   return (
     <div className="card card-compact w-full bg-base-100 shadow-xl">
       <figure>
