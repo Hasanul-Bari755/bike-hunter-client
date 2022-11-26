@@ -1,6 +1,6 @@
 import BookingModal from "../../BookingModal.js/BookingModal";
 
-const IndivisualCategoryShow = ({ product }) => {
+const IndivisualCategoryShow = ({ product, setProduct }) => {
   const {
     sellerName,
     sellerPhoneNumber,
@@ -35,16 +35,15 @@ const IndivisualCategoryShow = ({ product }) => {
         <p>Year Of Use: {yearOfUse}</p>
         <p>Description: {description}</p>
         <div className="card-actions justify-end">
-          <label htmlFor="booking-modal" className="btn bg-yellow-600">
+          <label
+            onClick={() => setProduct(product)}
+            htmlFor="booking-modal"
+            className="btn bg-yellow-600"
+          >
             Book Now
           </label>
         </div>
       </div>
-
-      <BookingModal
-        productName={productName}
-        resalePrice={resalePrice}
-      ></BookingModal>
     </div>
   );
 };

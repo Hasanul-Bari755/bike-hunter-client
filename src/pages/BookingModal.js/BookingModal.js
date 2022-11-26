@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../contexts/AuthProvider";
 
-const BookingModal = ({ productName, resalePrice }) => {
+const BookingModal = ({ product, setProduct }) => {
   const { user } = useContext(AuthContext);
-
+  const { productName, productPhoto, resalePrice } = product;
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -15,6 +15,7 @@ const BookingModal = ({ productName, resalePrice }) => {
       name: user?.displayName,
       email: user?.email,
       price: resalePrice,
+      image: productPhoto,
       bookingProductName: productName,
       meetLocation: location,
       phoneNumber: phone,
@@ -33,6 +34,7 @@ const BookingModal = ({ productName, resalePrice }) => {
         if (data.acknowledged) {
           form.reset();
           toast.success("Booking Confirmed");
+          setProduct(null);
         }
       });
   };
