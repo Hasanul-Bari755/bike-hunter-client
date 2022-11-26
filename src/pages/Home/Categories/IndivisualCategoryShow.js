@@ -2,6 +2,7 @@ import BookingModal from "../../BookingModal.js/BookingModal";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import { FaCheck } from "react-icons/fa";
 
 const IndivisualCategoryShow = ({ product, setProduct }) => {
   useEffect(() => {
@@ -21,6 +22,7 @@ const IndivisualCategoryShow = ({ product, setProduct }) => {
     productPhoto,
     productName,
     parchaseYear,
+    verifystatus,
   } = product;
 
   console.log(product._id);
@@ -35,7 +37,12 @@ const IndivisualCategoryShow = ({ product, setProduct }) => {
       </figure>
       <div className="card-body">
         <h2 className="card-title">{productName}</h2>
-        <p>Seller Name: {sellerName}</p>
+        <p className="flex">
+          Seller Name: {sellerName}{" "}
+          {verifystatus === "verified" && (
+            <FaCheck className="ml-2 text-blue-700 text-lg"></FaCheck>
+          )}
+        </p>
         <p>Seller Phone: {sellerPhoneNumber}</p>
         <p>Location: {location}</p>
         <p>Condition: {condition}</p>

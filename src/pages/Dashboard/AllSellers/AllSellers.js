@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import swal from "sweetalert";
 import { FaTrashAlt } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 const AllSellers = () => {
   const usertype = "seller";
@@ -42,6 +43,26 @@ const AllSellers = () => {
     });
   };
 
+  const handleVerify = (email) => {
+    console.log(email);
+    fetch(`http://localhost:5000/verify?email=${email}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount) {
+          refetch();
+          toast.success("User verifyed");
+        } else {
+          toast.error("Already verified");
+        }
+      });
+  };
+
   return (
     <div>
       <h2 className="text-4xl mb-6">All Sellers</h2>
@@ -52,6 +73,7 @@ const AllSellers = () => {
               <th></th>
               <th>Name</th>
               <th>Job</th>
+              <th>Verify</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -61,6 +83,14 @@ const AllSellers = () => {
                 <th>{i + 1}</th>
                 <td>{seller.name}</td>
                 <td>{seller.email}</td>
+                <td>
+                  <button
+                    onClick={() => handleVerify(seller.email)}
+                    className="btn btn-sm bg-yellow-600 "
+                  >
+                    Verify
+                  </button>
+                </td>
                 <td>
                   <button
                     onClick={() => handleDelete(seller._id)}

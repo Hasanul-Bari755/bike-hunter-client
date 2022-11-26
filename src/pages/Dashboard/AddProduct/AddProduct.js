@@ -73,6 +73,7 @@ const AddProduct = () => {
             yearOfUse: data.yearOfUse,
             postTime: time,
             status: "available",
+            verifystatus: "notverified",
           };
           //save product info to the database
           fetch("http://localhost:5000/products", {
