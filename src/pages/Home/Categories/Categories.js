@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import ShowCategories from "./ShowCategories";
+
 const Categories = () => {
   const { data: categories = [] } = useQuery({
     queryKey: ["categories"],

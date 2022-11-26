@@ -2,10 +2,15 @@ import React, { useContext } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../../Shared/Loading/Loading";
+import toast from "react-hot-toast";
 const MyProducts = () => {
   const { user } = useContext(AuthContext);
 
-  const { data: myproducts = [], isLoading } = useQuery({
+  const {
+    data: myproducts = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["products", user?.email],
     queryFn: async () => {
       const res = await fetch(
@@ -15,10 +20,27 @@ const MyProducts = () => {
       return data;
     },
   });
-  console.log(myproducts);
+
   if (isLoading) {
     return <Loading></Loading>;
   }
+
+  const handleAdvertise = (id) => {
+    console.log(id);
+    fetch(`http://localhost:5000/advertise/${id}`, {
+      method: "PUT",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount > 0) {
+          toast.success("Your Product Add to Advertise");
+          refetch();
+        } else {
+          toast.error("Already Add for Advertise");
+        }
+      });
+  };
 
   return (
     <div>
@@ -56,7 +78,10 @@ const MyProducts = () => {
 
                 <td>
                   {myproduct.status === "available" && (
-                    <button className="btn btn-sm bg-yellow-600">
+                    <button
+                      onClick={() => handleAdvertise(myproduct._id)}
+                      className="btn btn-sm bg-yellow-600"
+                    >
                       ADVERTISE
                     </button>
                   )}

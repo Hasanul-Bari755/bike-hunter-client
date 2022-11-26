@@ -1,6 +1,12 @@
 import BookingModal from "../../BookingModal.js/BookingModal";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
 
 const IndivisualCategoryShow = ({ product, setProduct }) => {
+  useEffect(() => {
+    AOS.init({ duration: 2000 });
+  }, []);
   const {
     sellerName,
     sellerPhoneNumber,
@@ -20,7 +26,10 @@ const IndivisualCategoryShow = ({ product, setProduct }) => {
   console.log(product._id);
 
   return (
-    <div className="card card-compact w-full bg-base-100 shadow-xl">
+    <div
+      data-aos="zoom-in-up"
+      className="card card-compact w-full bg-base-100 shadow-xl"
+    >
       <figure>
         <img className="h-72" src={productPhoto} alt="Shoes" />
       </figure>
