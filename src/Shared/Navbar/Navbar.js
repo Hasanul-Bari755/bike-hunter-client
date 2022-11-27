@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
+import useAdmin from "../../hooks/useAdmin";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [isAdmin] = useAdmin(user?.email);
 
   const handleLogout = () => {
     logOut()
@@ -63,7 +65,10 @@ const Navbar = () => {
             {menuItems}
           </ul>
         </div>
-        <Link className="btn btn-ghost normal-case text-3xl text-yellow-600">
+        <Link
+          to="/"
+          className="btn btn-ghost normal-case text-3xl text-yellow-600"
+        >
           Bike-Hunter
         </Link>
       </div>

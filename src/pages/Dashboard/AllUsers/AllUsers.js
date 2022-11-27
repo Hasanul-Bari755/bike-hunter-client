@@ -24,7 +24,7 @@ const AllUsers = () => {
   const handleMakeAdmin = (id) => {
     console.log(id);
     fetch(`http://localhost:5000/users/admin/${id}`, {
-      method: "PUT",
+      method: "PATCH",
     })
       .then((res) => res.json())
       .then((data) => {
@@ -54,7 +54,7 @@ const AllUsers = () => {
                 <td>{user?.name}</td>
                 <td>{user?.email}</td>
                 <td>
-                  {user?.role !== "admin" && (
+                  {user?.usertype !== "admin" && (
                     <button
                       onClick={() => handleMakeAdmin(user._id)}
                       className="btn btn-sm bg-yellow-600"

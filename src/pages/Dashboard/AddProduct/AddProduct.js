@@ -115,7 +115,7 @@ const AddProduct = () => {
     <div>
       <h2 className="text-4xl">Add Product</h2>
       <form className="my-6" onSubmit={handleSubmit(handleAddProduct)}>
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2 w-[90%] lg:w-full mx-auto">
           <div className="form-control w-full max-w-xs">
             <label className="label">
               {" "}

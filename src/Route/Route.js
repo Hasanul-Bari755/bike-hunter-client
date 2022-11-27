@@ -7,6 +7,7 @@ import AddProduct from "../pages/Dashboard/AddProduct/AddProduct";
 import AllBuyers from "../pages/Dashboard/AllBuyers/AllBuyers";
 import AllSellers from "../pages/Dashboard/AllSellers/AllSellers";
 import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
+import DashBoardHome from "../pages/Dashboard/DashBoardHome/DashBoardHome";
 import MyOrders from "../pages/Dashboard/MyOrders.js/MyOrders";
 import MyProducts from "../pages/Dashboard/MyProducts/MyProducts";
 import Payment from "../pages/Dashboard/Payment/Payment";
@@ -16,7 +17,9 @@ import Home from "../pages/Home/Home/Home";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
 import Errorpage from "../Shared/Errorpage/Errorpage";
+import AdminRoute from "./AdminRoute";
 import PrivateRoutes from "./PrivateRoutes";
+import SellerRoute from "./SellerRoute";
 
 const router = createBrowserRouter([
   {
@@ -54,32 +57,64 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout></DashboardLayout>,
+    element: (
+      <PrivateRoutes>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoutes>
+    ),
     errorElement: <Errorpage></Errorpage>,
     children: [
       {
         path: "/dashboard",
-        element: <AddProduct></AddProduct>,
+        element: <DashBoardHome></DashBoardHome>,
+      },
+      {
+        path: "/dashboard/addproduct",
+        element: (
+          <SellerRoute>
+            <AddProduct></AddProduct>
+          </SellerRoute>
+        ),
       },
       {
         path: "/dashboard/myproducts",
-        element: <MyProducts></MyProducts>,
+        element: (
+          <SellerRoute>
+            <MyProducts></MyProducts>
+          </SellerRoute>
+        ),
       },
       {
         path: "/dashboard/allsellers",
-        element: <AllSellers></AllSellers>,
+        element: (
+          <AdminRoute>
+            <AllSellers></AllSellers>
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/allusers",
-        element: <AllUsers></AllUsers>,
+        element: (
+          <AdminRoute>
+            <AllUsers></AllUsers>
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/allbuyers",
-        element: <AllBuyers></AllBuyers>,
+        element: (
+          <AdminRoute>
+            <AllBuyers></AllBuyers>
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/myorders",
-        element: <MyOrders></MyOrders>,
+        element: (
+          <SellerRoute>
+            <MyOrders></MyOrders>
+          </SellerRoute>
+        ),
       },
       {
         path: "/dashboard/payment/:id",
@@ -89,7 +124,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/report",
-        element: <Report></Report>,
+        element: (
+          <AdminRoute>
+            <Report></Report>
+          </AdminRoute>
+        ),
       },
     ],
   },
