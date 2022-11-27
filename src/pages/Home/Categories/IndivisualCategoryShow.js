@@ -3,12 +3,14 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 import { FaCheck } from "react-icons/fa";
+import swal from "sweetalert";
 
 const IndivisualCategoryShow = ({ product, setProduct }) => {
   useEffect(() => {
     AOS.init({ duration: 2000 });
   }, []);
   const {
+    _id,
     sellerName,
     sellerPhoneNumber,
     location,
@@ -25,7 +27,39 @@ const IndivisualCategoryShow = ({ product, setProduct }) => {
     verifystatus,
   } = product;
 
-  console.log(product._id);
+  const handleReport = (id) => {
+    swal({
+      title: "Are you sure?",
+      text: "You want to report for this product!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        fetch(`http://localhost:5000/report/${id}`, {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            if (data.modifiedCount > 0) {
+              swal("Your Report send to Authority", {
+                icon: "success",
+              });
+            } else {
+              swal("Already Reported Product", {
+                icon: "warning",
+              });
+            }
+          });
+      } else {
+        swal("Your Report don't send!");
+      }
+    });
+  };
 
   return (
     <div
@@ -53,6 +87,9 @@ const IndivisualCategoryShow = ({ product, setProduct }) => {
         <p>Year Of Use: {yearOfUse}</p>
         <p>Description: {description}</p>
         <div className="card-actions justify-end">
+          <button onClick={() => handleReport(_id)} className="btn bg-red-400">
+            Report
+          </button>
           <label
             onClick={() => setProduct(product)}
             htmlFor="booking-modal"
