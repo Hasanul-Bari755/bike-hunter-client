@@ -1,3 +1,4 @@
+import { async } from "@firebase/util";
 import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../layout/DashboardLayout";
 import Main from "../layout/Main";
@@ -7,6 +8,7 @@ import AllSellers from "../pages/Dashboard/AllSellers/AllSellers";
 import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 import MyOrders from "../pages/Dashboard/MyOrders.js/MyOrders";
 import MyProducts from "../pages/Dashboard/MyProducts/MyProducts";
+import Payment from "../pages/Dashboard/Payment/Payment";
 import IndivisualCtagory from "../pages/Home/Categories/IndivisualCtagory";
 import Home from "../pages/Home/Home/Home";
 import Login from "../pages/Login/Login";
@@ -72,6 +74,12 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/myorders",
         element: <MyOrders></MyOrders>,
+      },
+      {
+        path: "/dashboard/payment/:id",
+        element: <Payment></Payment>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/bookings/${params.id}`),
       },
     ],
   },

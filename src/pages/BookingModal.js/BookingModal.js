@@ -5,7 +5,6 @@ import { AuthContext } from "../../contexts/AuthProvider";
 const BookingModal = ({ product, setProduct }) => {
   const { user } = useContext(AuthContext);
   const { productName, productPhoto, resalePrice, _id } = product;
-  console.log(_id);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -21,6 +20,8 @@ const BookingModal = ({ product, setProduct }) => {
       bookingProductName: productName,
       meetLocation: location,
       phoneNumber: phone,
+      productId: _id,
+      paid: false,
     };
 
     fetch("http://localhost:5000/bookings", {
@@ -91,6 +92,7 @@ const BookingModal = ({ product, setProduct }) => {
             </div>
             <div className="my-3">
               <input
+                required
                 name="location"
                 type="text"
                 placeholder="Meeting Location"
@@ -99,6 +101,7 @@ const BookingModal = ({ product, setProduct }) => {
             </div>
             <div className="my-3">
               <input
+                required
                 name="phone"
                 type="text"
                 placeholder="Phone Number"

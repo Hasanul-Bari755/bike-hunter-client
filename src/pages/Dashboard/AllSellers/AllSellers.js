@@ -92,7 +92,7 @@ const AllSellers = () => {
                       Verify
                     </button>
                   ) : (
-                    "Verified"
+                    <p className="text-green-500 text-lg font-bold">Verified</p>
                   )}
                 </td>
                 <td>
