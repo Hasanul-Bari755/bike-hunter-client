@@ -33,23 +33,12 @@ const BookingModal = ({ product, setProduct }) => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        if (data.acknowledged) {
-          fetch(`http://localhost:5000/productstatus/${_id}`, {
-            method: "PATCH",
-            headers: {
-              "content-type": "application/json",
-            },
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              console.log(data);
-              form.reset();
-              toast.success("Booking Confirmed");
-              setProduct(null);
-            });
-        }
+        form.reset();
+        toast.success("Booking Confirmed");
+        setProduct(null);
       });
   };
+
   return (
     <div>
       {/* Put this part before </body> tag */}

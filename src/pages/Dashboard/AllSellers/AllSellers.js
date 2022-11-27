@@ -84,12 +84,16 @@ const AllSellers = () => {
                 <td>{seller.name}</td>
                 <td>{seller.email}</td>
                 <td>
-                  <button
-                    onClick={() => handleVerify(seller.email)}
-                    className="btn btn-sm bg-yellow-600 "
-                  >
-                    Verify
-                  </button>
+                  {seller.verifystatus === "notverified" ? (
+                    <button
+                      onClick={() => handleVerify(seller.email)}
+                      className="btn btn-sm bg-yellow-600 "
+                    >
+                      Verify
+                    </button>
+                  ) : (
+                    "Verified"
+                  )}
                 </td>
                 <td>
                   <button

@@ -39,11 +39,19 @@ const SignUp = () => {
   };
 
   const saveUserInfo = (name, email, usertype) => {
-    const user = {
+    let user = {
       name,
       email,
       usertype,
+      verifystatus: "notverified",
     };
+    if (usertype === "buyer") {
+      user = {
+        name,
+        email,
+        usertype,
+      };
+    }
     fetch("http://localhost:5000/users", {
       method: "POST",
       headers: {

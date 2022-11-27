@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
@@ -31,6 +31,18 @@ const AddProduct = () => {
   const { user } = useContext(AuthContext);
   const imageHostKey = process.env.REACT_APP_image_key;
   const navigate = useNavigate();
+  const [sellerverify, setSellerverify] = useState({});
+
+  useEffect(() => {
+    console.log(user?.email);
+    if (user?.email) {
+      fetch(`http://localhost:5000/verifyseller?email=${user?.email}`)
+        .then((res) => res.json())
+        .then((sellerData) => {
+          setSellerverify(sellerData);
+        });
+    }
+  }, [user?.email]);
 
   const { data: categories = [], isLoading } = useQuery({
     queryKey: ["categoriestype"],
@@ -73,7 +85,7 @@ const AddProduct = () => {
             yearOfUse: data.yearOfUse,
             postTime: time,
             status: "available",
-            verifystatus: "notverified",
+            verifystatus: sellerverify.verifystatus,
           };
           //save product info to the database
           fetch("http://localhost:5000/products", {
