@@ -5,7 +5,7 @@ import { AuthContext } from "../../../contexts/AuthProvider";
 import Loading from "../../../Shared/Loading/Loading";
 
 const MyOrders = () => {
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
   const { data: myorders = [], isLoading } = useQuery({
     queryKey: ["bookings", user?.email],
     queryFn: async () => {
@@ -20,6 +20,10 @@ const MyOrders = () => {
   console.log(myorders, user?.email);
 
   if (isLoading) {
+    return <Loading></Loading>;
+  }
+
+  if (loading) {
     return <Loading></Loading>;
   }
 
