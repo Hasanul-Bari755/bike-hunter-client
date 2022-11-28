@@ -36,7 +36,9 @@ const AddProduct = () => {
   useEffect(() => {
     console.log(user?.email);
     if (user?.email) {
-      fetch(`http://localhost:5000/verifyseller?email=${user?.email}`)
+      fetch(
+        `https://bike-hunter-server.vercel.app/verifyseller?email=${user?.email}`
+      )
         .then((res) => res.json())
         .then((sellerData) => {
           setSellerverify(sellerData);
@@ -47,7 +49,9 @@ const AddProduct = () => {
   const { data: categories = [], isLoading } = useQuery({
     queryKey: ["categoriestype"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/categoriestype");
+      const res = await fetch(
+        "https://bike-hunter-server.vercel.app/categoriestype"
+      );
       const data = await res.json();
       return data;
     },
@@ -88,7 +92,7 @@ const AddProduct = () => {
             verifystatus: sellerverify.verifystatus,
           };
           //save product info to the database
-          fetch("http://localhost:5000/products", {
+          fetch("https://bike-hunter-server.vercel.app/products", {
             method: "POST",
             headers: {
               "content-type": "application/json",

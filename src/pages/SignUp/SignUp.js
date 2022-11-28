@@ -65,7 +65,7 @@ const SignUp = () => {
         usertype,
       };
     }
-    fetch("http://localhost:5000/users", {
+    fetch("https://bike-hunter-server.vercel.app/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -75,7 +75,7 @@ const SignUp = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        fetch(`http://localhost:5000/jwt?email=${email}`)
+        fetch(`https://bike-hunter-server.vercel.app/jwt?email=${email}`)
           .then((res) => res.json())
           .then((data) => {
             if (data.accessToken) {

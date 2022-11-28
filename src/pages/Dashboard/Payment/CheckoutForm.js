@@ -13,7 +13,7 @@ const CheckoutForm = ({ booking }) => {
   const { _id, name, email, price, productId } = booking;
 
   useEffect(() => {
-    fetch("http://localhost:5000/create-payment-intent", {
+    fetch("https://bike-hunter-server.vercel.app/create-payment-intent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -74,7 +74,7 @@ const CheckoutForm = ({ booking }) => {
         email,
         bookingId: _id,
       };
-      fetch("http://localhost:5000/payments", {
+      fetch("https://bike-hunter-server.vercel.app/payments", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -85,20 +85,26 @@ const CheckoutForm = ({ booking }) => {
         .then((res) => res.json())
         .then((data) => {
           if (data.insertedId) {
-            fetch(`http://localhost:5000/paidStatusUpdate/${_id}`, {
-              method: "PATCH",
-              headers: {
-                "content-type": "application/json",
-              },
-            })
+            fetch(
+              `https://bike-hunter-server.vercel.app/paidStatusUpdate/${_id}`,
+              {
+                method: "PATCH",
+                headers: {
+                  "content-type": "application/json",
+                },
+              }
+            )
               .then((res) => res.json())
               .then((data) => {
-                fetch(`http://localhost:5000/statusUpdate/${productId}`, {
-                  method: "PATCH",
-                  headers: {
-                    "content-type": "application/json",
-                  },
-                })
+                fetch(
+                  `https://bike-hunter-server.vercel.app/statusUpdate/${productId}`,
+                  {
+                    method: "PATCH",
+                    headers: {
+                      "content-type": "application/json",
+                    },
+                  }
+                )
                   .then((res) => res.json())
                   .then((data) => {
                     console.log(data);

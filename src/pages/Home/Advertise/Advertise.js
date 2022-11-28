@@ -8,7 +8,7 @@ const Advertise = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/advertiseproducts")
+      .get("https://bike-hunter-server.vercel.app/advertiseproducts")
       .then((data) => setAdvertiseProducts(data.data));
   }, []);
 

@@ -36,7 +36,7 @@ const IndivisualCategoryShow = ({ product, setProduct }) => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        fetch(`http://localhost:5000/report/${id}`, {
+        fetch(`https://bike-hunter-server.vercel.app/report/${id}`, {
           method: "PUT",
           headers: {
             "content-type": "application/json",

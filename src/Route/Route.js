@@ -47,7 +47,9 @@ const router = createBrowserRouter([
       {
         path: "/category/:name",
         loader: async ({ params }) =>
-          fetch(`http://localhost:5000/products/${params?.name}`),
+          fetch(
+            `https://bike-hunter-server.vercel.app/products/${params?.name}`
+          ),
         element: (
           <PrivateRoutes>
             <IndivisualCtagory></IndivisualCtagory>
@@ -121,7 +123,7 @@ const router = createBrowserRouter([
         path: "/dashboard/payment/:id",
         element: <Payment></Payment>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/bookings/${params.id}`),
+          fetch(`https://bike-hunter-server.vercel.app/bookings/${params.id}`),
       },
       {
         path: "/dashboard/report",

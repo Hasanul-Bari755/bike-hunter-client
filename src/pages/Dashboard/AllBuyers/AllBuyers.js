@@ -9,7 +9,9 @@ const AllBuyers = () => {
   const { data: buyers = [], refetch } = useQuery({
     queryKey: ["buyer", usertype],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/buyer?buyer=${usertype}`);
+      const res = await fetch(
+        `https://bike-hunter-server.vercel.app/buyer?buyer=${usertype}`
+      );
       const data = res.json();
       return data;
     },
@@ -25,7 +27,7 @@ const AllBuyers = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        fetch(`http://localhost:5000/buyer/${id}`, {
+        fetch(`https://bike-hunter-server.vercel.app/buyer/${id}`, {
           method: "DELETE",
           headers: {
             authorization: `bearer ${localStorage.getItem("accessToken")}`,

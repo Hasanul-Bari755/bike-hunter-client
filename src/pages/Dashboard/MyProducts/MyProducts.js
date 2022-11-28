@@ -17,7 +17,7 @@ const MyProducts = () => {
     queryKey: ["products", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/products?email=${user?.email}`
+        `https://bike-hunter-server.vercel.app/products?email=${user?.email}`
       );
       const data = await res.json();
       return data;
@@ -30,7 +30,7 @@ const MyProducts = () => {
 
   const handleAdvertise = (id) => {
     console.log(id);
-    fetch(`http://localhost:5000/advertise/${id}`, {
+    fetch(`https://bike-hunter-server.vercel.app/advertise/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -59,7 +59,7 @@ const MyProducts = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        fetch(`http://localhost:5000/myproduct/${id}`, {
+        fetch(`https://bike-hunter-server.vercel.app/myproduct/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
