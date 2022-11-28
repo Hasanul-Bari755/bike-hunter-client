@@ -18,6 +18,7 @@ import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
 import Errorpage from "../Shared/Errorpage/Errorpage";
 import AdminRoute from "./AdminRoute";
+import BuyerRoute from "./BuyerRoute";
 import PrivateRoutes from "./PrivateRoutes";
 import SellerRoute from "./SellerRoute";
 
@@ -111,9 +112,9 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/myorders",
         element: (
-          <SellerRoute>
+          <BuyerRoute>
             <MyOrders></MyOrders>
-          </SellerRoute>
+          </BuyerRoute>
         ),
       },
       {

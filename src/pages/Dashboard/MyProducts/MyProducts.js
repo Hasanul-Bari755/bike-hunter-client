@@ -32,6 +32,10 @@ const MyProducts = () => {
     console.log(id);
     fetch(`http://localhost:5000/advertise/${id}`, {
       method: "PUT",
+      headers: {
+        "content-type": "application/json",
+        authorization: `bearer ${localStorage.getItem("accessToken")}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => {

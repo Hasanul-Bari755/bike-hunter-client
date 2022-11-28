@@ -7,7 +7,11 @@ const Report = () => {
   const { data: reportedProducts = [], refetch } = useQuery({
     queryKey: ["reportedproducts"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/reportedproducts");
+      const res = await fetch("http://localhost:5000/reportedproducts", {
+        headers: {
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
       const data = (await res).json();
       return data;
     },
@@ -24,6 +28,9 @@ const Report = () => {
       if (willDelete) {
         fetch(`http://localhost:5000/reportedProductDelete/${id}`, {
           method: "DELETE",
+          headers: {
+            authorization: `bearer ${localStorage.getItem("accessToken")}`,
+          },
         })
           .then((res) => res.json())
           .then((data) => {

@@ -2,7 +2,7 @@ import React from "react";
 
 const Discount = () => {
   return (
-    <div className="bg-yellow-600 rounded">
+    <div className="bg-yellow-600 rounded mt-28">
       <div className="p-6 py-12 dark:bg-violet-400 dark:text-gray-900 rounded">
         <div className="container mx-auto">
           <div className="flex flex-col lg:flex-row items-center justify-between">

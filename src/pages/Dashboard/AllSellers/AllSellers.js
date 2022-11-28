@@ -29,6 +29,9 @@ const AllSellers = () => {
       if (willDelete) {
         fetch(`http://localhost:5000/seller/${id}`, {
           method: "DELETE",
+          headers: {
+            authorization: `bearer ${localStorage.getItem("accessToken")}`,
+          },
         })
           .then((res) => res.json())
           .then((data) => {
@@ -49,6 +52,7 @@ const AllSellers = () => {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
+        authorization: `bearer ${localStorage.getItem("accessToken")}`,
       },
     })
       .then((res) => res.json())

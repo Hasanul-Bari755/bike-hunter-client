@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthProvider";
-import useBuyer from "../hooks/usebuyer";
+import useBuyer from "../hooks/useBuyer";
 import Loading from "../Shared/Loading/Loading";
 
 const BuyerRoute = ({ children }) => {

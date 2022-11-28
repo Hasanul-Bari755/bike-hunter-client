@@ -40,6 +40,7 @@ const IndivisualCategoryShow = ({ product, setProduct }) => {
           method: "PUT",
           headers: {
             "content-type": "application/json",
+            authorization: `bearer ${localStorage.getItem("accessToken")}`,
           },
         })
           .then((res) => res.json())

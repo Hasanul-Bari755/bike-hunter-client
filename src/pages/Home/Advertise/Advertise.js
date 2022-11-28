@@ -1,21 +1,17 @@
-import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import Loading from "../../../Shared/Loading/Loading";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+
 import AdverticeProductShow from "./AdverticeProductShow";
 
 const Advertise = () => {
-  const { data: advertiseproducts = [], isLoading } = useQuery({
-    queryKey: ["advertiseproducts"],
-    queryFn: async () => {
-      const res = await fetch("http://localhost:5000/advertiseproducts");
-      const data = await res.json();
-      return data;
-    },
-  });
+  const [advertiseproducts, setAdvertiseProducts] = useState([]);
 
-  if (isLoading) {
-    return <Loading></Loading>;
-  }
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/advertiseproducts")
+      .then((data) => setAdvertiseProducts(data.data));
+  }, []);
+
   return (
     <div>
       {advertiseproducts.length > 0 ? (
