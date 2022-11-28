@@ -35,6 +35,6 @@ This is a buying ans selling projct. Seller can add product in defferent categor
 
 https://bike-hunter-8a6f4.web.app/
 
-adminEmail: hasanulbari9@gmail.com
+adminEmail: <hasanulbari9@gmail.com>
 
-adminPassword: 123456Hasan#
+adminPassword: <123456Hasan#>
