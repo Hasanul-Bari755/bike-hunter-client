@@ -11,7 +11,7 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
   const [signUpError, setSignUpError] = useState("");
-  const { createUser, updateUser } = useContext(AuthContext);
+  const { createUser, updateUser, signInWithGoogle } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -35,6 +35,19 @@ const SignUp = () => {
       .catch((error) => {
         console.log(error);
         setSignUpError(error.message);
+      });
+  };
+
+  const handleSignInWithGoogle = () => {
+    signInWithGoogle()
+      .then((result) => {
+        const user = result.user;
+        const usertype = "buyer";
+
+        saveUserInfo(user.displayName, user.email, usertype);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -163,7 +176,12 @@ const SignUp = () => {
           </Link>
         </p>
         <div className="divider">OR</div>
-        <button className="btn btn-outline w-full">CONTINUE WITH GOOGLE</button>
+        <button
+          onClick={handleSignInWithGoogle}
+          className="btn btn-outline w-full"
+        >
+          CONTINUE WITH GOOGLE
+        </button>
       </div>
     </div>
   );

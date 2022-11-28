@@ -65,6 +65,13 @@ const Navbar = () => {
             {menuItems}
           </ul>
         </div>
+        <Link to="/">
+          <img
+            className="h-12 rounded"
+            src="https://www.huntermotorcycles.co.id/wp-content/uploads/2021/06/cropped-H-icon_black_sticker.jpg"
+            alt=""
+          />
+        </Link>
         <Link
           to="/"
           className="btn btn-ghost normal-case text-3xl text-yellow-600"

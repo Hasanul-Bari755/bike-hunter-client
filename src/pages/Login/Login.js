@@ -10,7 +10,7 @@ const Login = () => {
     handleSubmit,
   } = useForm();
   const [loginError, setLoginError] = useState();
-  const { signIn } = useContext(AuthContext);
+  const { signIn, signInWithGoogle } = useContext(AuthContext);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -36,6 +36,40 @@ const Login = () => {
       })
       .catch((error) => {
         setLoginError(error.message);
+      });
+  };
+
+  const handleGooleSignIn = () => {
+    signInWithGoogle()
+      .then((result) => {
+        const user = result.user;
+        const userInfo = {
+          name: user?.displayName,
+          email: user?.email,
+          usertype: "buyer",
+        };
+        fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(userInfo),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            fetch(`http://localhost:5000/jwt?email=${user?.email}`)
+              .then((res) => res.json())
+              .then((data) => {
+                console.log(data);
+                if (data.accessToken) {
+                  localStorage.setItem("accessToken", data.accessToken);
+                  navigate(from, { replace: true });
+                }
+              });
+          });
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -100,7 +134,9 @@ const Login = () => {
           </Link>
         </p>
         <div className="divider">OR</div>
-        <button className="btn btn-outline w-full">CONTINUE WITH GOOGLE</button>
+        <button onClick={handleGooleSignIn} className="btn btn-outline w-full">
+          CONTINUE WITH GOOGLE
+        </button>
       </div>
     </div>
   );
